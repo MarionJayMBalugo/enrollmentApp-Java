@@ -7,6 +7,7 @@
 package enrollmentsystem;
 
 import java.io.BufferedWriter;
+import java.io.IOException;
 
 /**
  *
@@ -20,10 +21,11 @@ public class File {
 
     public File() {
     }
-    public File(BufferedWriter accF,BufferedWriter courseFile,BufferedWriter infoFile){
-        this.accFile=accF;
-        this.courseFile=courseFile;
-        this.infoFile=infoFile;
+
+    public File(BufferedWriter accF, BufferedWriter courseFile, BufferedWriter infoFile) {
+        this.accFile = accF;
+        this.courseFile = courseFile;
+        this.infoFile = infoFile;
     }
 
     public BufferedWriter getAccFile() {
@@ -54,9 +56,30 @@ public class File {
     public String toString() {
         return "File{" + "accFile=" + accFile + ", courseFile=" + courseFile + ", infoFile=" + infoFile + '}';
     }
-    
-    
+
+    public void sendAccount(int id, String user, String password) throws IOException {
+        try {
+            String send = String.format("%d %s %s \n", id, user, password);
+            accFile.write(send);
+            System.out.println("Data send");
+        } catch (IOException e) {
+            System.out.println("File not found");
+        } finally {
+            System.out.println("connection closed!");
+            accFile.close();
+        }
+    }
+    public void sendPersonalInfo(int id,int accId, String fname, String lname,int age) throws IOException {
+        try {
+            String send = String.format("%d %d %s %s %d\n", id,accId,fname,lname,age);
+            accFile.write(send);
+            System.out.println("Data send");
+        } catch (IOException e) {
+            System.out.println("File not found");
+        } finally {
+            System.out.println("connection closed!");
+            accFile.close();
+        }
+    }
 
 }
-
-

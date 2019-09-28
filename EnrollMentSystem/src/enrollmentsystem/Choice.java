@@ -36,7 +36,7 @@ public class Choice {
         boolean ans = true;
         System.out.println("press any key to continue\tpress 1 to end " + end);
         String endChoice = write.next();
-        if (endChoice == "1") {
+        if (endChoice.equals("1")) {
             ans = false;          
         }
         return ans;

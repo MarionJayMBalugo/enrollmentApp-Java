@@ -33,13 +33,15 @@ public class ExceptionHandler {
         return ans;
 
     }
+
     public static void charShouldNotBeNumber(String word) {
         if (charIsNotString(word) || charIsDigit(word)) {
             throw new ArithmeticException("opps!numbers are not allowed");
         }
     }
 //level one Checker
-    public static boolean level_One(String user, String password, String verifyPass, int count) {
+
+    public static boolean level_One(String user, String password, String verifyPass) {
         boolean ans = false;
         charShouldNotBeNumber(user);
         if (password.length() < 8) {
@@ -47,7 +49,7 @@ public class ExceptionHandler {
         } else {
             if (password.equals(verifyPass)) {
                 ans = true;
-                count++;
+
             } else {
                 System.out.println("password not match");
             }
@@ -55,24 +57,27 @@ public class ExceptionHandler {
         return ans;
     }
 //level two
-    public static boolean level_two(String fname, String lname, String age,int count) {
+
+    public static boolean level_two(String fname, String lname, int age) throws Exception {
         boolean ans = false;
         String name = fname + lname;
-        charShouldNotBeNumber(name); 
-        if (charIsDigit(age) == false) {
-            throw new NumberFormatException("opps! letters are not allowed");
+        charShouldNotBeNumber(name);
+        try{
+            int x=age;
+        }catch(Exception e){
+            throw new Exception("please enter a number");
         }
-        int agee = Integer.valueOf(age);
-        if (agee < 18 || agee >= 100) {
+        if (age < 18 || age >= 100) {
             throw new ArithmeticException("dapat sakto ra ang idad please");
         } else {
             ans = true;
-            count++;
+
         }
         return ans;
 
     }
 //level three
+
     public static boolean level_Three(String course, String sched, String unit, int count) {
         boolean ans = false;
         charShouldNotBeNumber(course);
@@ -93,11 +98,5 @@ public class ExceptionHandler {
 
         return ans;
     }
-    
+
 }
-
-
-
-
-
-
