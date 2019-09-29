@@ -6,8 +6,12 @@
  */
 package enrollmentsystem;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -15,6 +19,7 @@ import java.io.IOException;
  */
 public class File {
 
+    private ArrayList<ArrayList> list = new ArrayList();
     private BufferedWriter accFile = null;
     private BufferedWriter courseFile = null;
     private BufferedWriter infoFile = null;
@@ -22,10 +27,14 @@ public class File {
     public File() {
     }
 
-    public File(BufferedWriter accF, BufferedWriter courseFile, BufferedWriter infoFile) {
+    public File(BufferedWriter accF, BufferedWriter infoFile, BufferedWriter courseFile) {
         this.accFile = accF;
         this.courseFile = courseFile;
         this.infoFile = infoFile;
+    }
+
+    public ArrayList getList() {
+        return list;
     }
 
     public BufferedWriter getAccFile() {
@@ -59,8 +68,9 @@ public class File {
 
     public void sendAccount(int id, String user, String password) throws IOException {
         try {
-            String send = String.format("%d %s %s \n", id, user, password);
+            String send = String.format("%d %s %s ", id, user, password);
             accFile.write(send);
+            accFile.newLine();
             System.out.println("Data send");
         } catch (IOException e) {
             System.out.println("File not found");
@@ -69,17 +79,53 @@ public class File {
             accFile.close();
         }
     }
-    public void sendPersonalInfo(int id,int accId, String fname, String lname,int age) throws IOException {
+
+    public void sendPersonalInfo(int id, int accId, String fname, String lname, int age) throws IOException {
         try {
-            String send = String.format("%d %d %s %s %d\n", id,accId,fname,lname,age);
-            accFile.write(send);
+            String send = String.format("%d %d %s %s %d", id, accId, fname, lname, age);
+            infoFile.write(send);
+            infoFile.newLine();
             System.out.println("Data send");
         } catch (IOException e) {
             System.out.println("File not found");
         } finally {
             System.out.println("connection closed!");
-            accFile.close();
+            infoFile.close();
         }
+    }
+
+    public void sendCourse(int id, int accId, String subject, String sched, int unit) throws IOException {
+        try {
+            String send = String.format("%d %d %s %s %d", id, accId, subject, sched, unit);
+            courseFile.write(send);
+            courseFile.newLine();
+            System.out.println("Data send");
+        } catch (IOException e) {
+            System.out.println("File not found");
+        } finally {
+            System.out.println("connection closed!");
+            courseFile.close();
+        }
+    }
+
+    public void sendArray(BufferedReader reader) throws IOException {
+        ArrayList<String> tempList = new ArrayList();
+        try {
+            String line = reader.readLine();
+            while (line != null) {          
+                for (String item : line.split(" ")) {
+                    tempList.add(item);
+                }
+                list.add(tempList);
+                tempList = new ArrayList();          
+                line = reader.readLine();
+            }
+
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

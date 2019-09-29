@@ -5,6 +5,8 @@
  */
 package enrollmentsystem;
 
+import java.util.InputMismatchException;
+
 /**
  *
  * @author 2ndyrGroupA
@@ -51,7 +53,7 @@ public class ExceptionHandler {
                 ans = true;
 
             } else {
-                System.out.println("password not match");
+                throw new ArithmeticException("password did not match");
             }
         }
         return ans;
@@ -62,9 +64,9 @@ public class ExceptionHandler {
         boolean ans = false;
         String name = fname + lname;
         charShouldNotBeNumber(name);
-        try{
-            int x=age;
-        }catch(Exception e){
+        try {
+            int x = age;
+        } catch (Exception e) {
             throw new Exception("please enter a number");
         }
         if (age < 18 || age >= 100) {
@@ -78,22 +80,18 @@ public class ExceptionHandler {
     }
 //level three
 
-    public static boolean level_Three(String course, String sched, String unit, int count) {
+    public static boolean level_Three(String course, String sched, int unit) {
         boolean ans = false;
         charShouldNotBeNumber(course);
         charShouldNotBeNumber(sched);
-
-        if (charIsDigit(unit) == false) {
-            throw new NumberFormatException("opps! letters are not allowed");
-        }
         int units = Integer.valueOf(unit);
-        if (units < 0 || units > 50) {
+        if (unit < 0 || unit> 50) {
             ans = false;
             throw new ArithmeticException("invalid number of load");
 
         } else {
             ans = true;
-            count++;
+
         }
 
         return ans;

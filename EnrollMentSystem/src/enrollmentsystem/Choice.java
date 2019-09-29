@@ -32,27 +32,28 @@ public class Choice {
         }
 
     }
+
     public static boolean endChoice(Scanner write, String end) {
         boolean ans = true;
         System.out.println("press any key to continue\tpress 1 to end " + end);
         String endChoice = write.next();
         if (endChoice.equals("1")) {
-            ans = false;          
+            ans = false;
         }
         return ans;
     }
-    public static int  ans(Scanner write){
-        int transactionChoice=0;
+
+    public static int ans(Scanner write) {
+        int transactionChoice = 0;
         try {
-                transactionChoice = write.nextInt();
-            } catch (InputMismatchException e) {
-                transactionChoice=0;
-                System.out.println("opps please I'm asking for a digit!!!");
-                write.next(); 
-                
-            }
+            transactionChoice = write.nextInt();
+        } catch (InputMismatchException e) {
+            transactionChoice = 0;
+            System.out.println("opps please I'm asking for a digit!!!");
+            write.next();
+
+        }
         return transactionChoice;
     }
-  
 
 }
