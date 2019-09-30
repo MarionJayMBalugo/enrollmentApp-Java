@@ -9,6 +9,7 @@ package enrollmentsystem;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,11 +67,15 @@ public class File {
         return "File{" + "accFile=" + accFile + ", courseFile=" + courseFile + ", infoFile=" + infoFile + '}';
     }
 
-    public void sendAccount(int id, String user, String password) throws IOException {
+    public void sendAccount(ArrayList<ArrayList> list) throws IOException {
+        FileWriter accFile = new FileWriter("C:\\Users\\2ndyrGroupC\\Desktop\\Accounts.txt", false);
         try {
-            String send = String.format("%d %s %s ", id, user, password);
-            accFile.write(send);
-            accFile.newLine();
+            for (ArrayList item : list) {
+                System.out.println(item.toString());
+                String send = String.format("%s %s %s \n", item.get(0), item.get(1), item.get(2));
+                accFile.write(send);
+
+            }
             System.out.println("Data send");
         } catch (IOException e) {
             System.out.println("File not found");
@@ -80,11 +85,13 @@ public class File {
         }
     }
 
-    public void sendPersonalInfo(int id, int accId, String fname, String lname, int age) throws IOException {
+    public void sendPersonalInfo(ArrayList<ArrayList> list) throws IOException {
+        FileWriter infoFile = new FileWriter("C:\\Users\\2ndyrGroupC\\Desktop\\Personal_Info.txt", false);
         try {
-            String send = String.format("%d %d %s %s %d", id, accId, fname, lname, age);
-            infoFile.write(send);
-            infoFile.newLine();
+            for (ArrayList item : list) {
+                String send = String.format("%s %s %s %s %s", item.get(0), item.get(1), item.get(2), item.get(3), item.get(4));
+                infoFile.write(send);
+            }
             System.out.println("Data send");
         } catch (IOException e) {
             System.out.println("File not found");
@@ -94,11 +101,13 @@ public class File {
         }
     }
 
-    public void sendCourse(int id, int accId, String subject, String sched, int unit) throws IOException {
+    public void sendCourse(ArrayList<ArrayList> list) throws IOException {
+        FileWriter infoFile = new FileWriter("C:\\Users\\2ndyrGroupC\\Desktop\\Courses.txt", false);
         try {
-            String send = String.format("%d %d %s %s %d", id, accId, subject, sched, unit);
-            courseFile.write(send);
-            courseFile.newLine();
+            for (ArrayList item : list) {
+                String send = String.format("%s %s %s %s %s", item.get(0), item.get(1), item.get(2), item.get(3), item.get(4));
+                courseFile.write(send);
+            }
             System.out.println("Data send");
         } catch (IOException e) {
             System.out.println("File not found");
@@ -112,12 +121,13 @@ public class File {
         ArrayList<String> tempList = new ArrayList();
         try {
             String line = reader.readLine();
-            while (line != null) {          
+            while (line != null) {
                 for (String item : line.split(" ")) {
                     tempList.add(item);
                 }
+                System.out.println(tempList);
                 list.add(tempList);
-                tempList = new ArrayList();          
+                tempList = new ArrayList();
                 line = reader.readLine();
             }
 
