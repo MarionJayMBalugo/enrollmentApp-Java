@@ -42,30 +42,22 @@ public class EnrollMentSystem {
             file2.sendArray(new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Desktop\\Courses.txt")));
             Array.setCourseList(file2.getList());
             Scanner write = new Scanner(System.in);
-
             boolean end = true;
             while (end) {
                 //instantiates here
-
 //scanner        
 //instantiating account,course,name classes
                 Account acc = new Account();
                 Course course = new Course();
                 Name name = new Name();
                 Choice.transaction();
-                int transactionChoice = Choice.ans(write);
-                if (transactionChoice == 0) {
-                    continue;
-                }
+                int transactionChoice = Choice.ans(write);            
                 switch (transactionChoice) {
                     case 1:
                         boolean endRetrieve = true;
                         while (endRetrieve) {
                             transaction("retrieve");
-                            int choiceRetrieve = Choice.ans(write);
-                            if (transactionChoice == 0) {
-                                continue;
-                            }
+                            int choiceRetrieve = Choice.ans(write);                                         
                             switch (choiceRetrieve) {
                                 case 1:
                                     System.out.println("display All");
@@ -86,7 +78,6 @@ public class EnrollMentSystem {
                                     Array.displayInfoList();
                                     break;
                                 case 4:
-
                                     Array.displayCourseList();
                                     break;
                                 default:
@@ -94,7 +85,6 @@ public class EnrollMentSystem {
                                     break;
                             }
                             endRetrieve = Choice.endChoice(write, "retrieve");
-                            System.out.println(endRetrieve);
                         }
                         break;
 
@@ -103,7 +93,6 @@ public class EnrollMentSystem {
                         boolean endAdd = true;
                         while (endAdd) {
                             //level one
-                            file.setAccFile(new BufferedWriter(new FileWriter("C:\\Users\\2ndyrGroupC\\Desktop\\Accounts.txt", true)));
                             String user = "";
                             String password = "";
                             String verify = "";
@@ -120,9 +109,7 @@ public class EnrollMentSystem {
                                     list.add(String.valueOf(counter));
                                     list.add(user);
                                     list.add(password);
-                                    Array.addAccList(list);
-                                    System.out.println(Array.getAccList());
-
+                                    Array.addAccList(list);                                  
                                 } else {
                                     continue;
                                 }
@@ -134,7 +121,6 @@ public class EnrollMentSystem {
                             //level two
                             boolean endPersonalInfoAdd = true;
                             while (endPersonalInfoAdd) {
-                                file.setInfoFile(new BufferedWriter(new FileWriter("C:\\Users\\2ndyrGroupC\\Desktop\\Personal_Info.txt", true)));
                                 String fname = "";
                                 String lname = "";
                                 int age = 0;
@@ -168,8 +154,7 @@ public class EnrollMentSystem {
                                 }
                             }
                             boolean endCourseAdd = true;
-                            while (endCourseAdd) {
-                                file.setCourseFile(new BufferedWriter(new FileWriter("C:\\Users\\2ndyrGroupC\\Desktop\\Courses.txt", true)));
+                            while (endCourseAdd) {   
                                 String subject = "";
                                 String sched = "";
                                 int unit = 0;
@@ -230,7 +215,7 @@ public class EnrollMentSystem {
                                     System.out.println("idiot!!! only choose from the given!!");
                                     break;
                             }
-                            endAdd = Choice.endChoice(write, "delete");
+                            endDelete = Choice.endChoice(write, "delete");
                         }
                         break;
                     case 4:
@@ -272,7 +257,7 @@ public class EnrollMentSystem {
                                             Array.addInfoList(list);
                                             list.add(lname);
                                             list.add(String.valueOf(age));
-                                            Array.updateInfo(updateHolder,list);
+                                            Array.updateInfo(updateHolder, list);
                                         }
                                     } catch (Exception e) {
                                         System.out.println(e);
@@ -285,37 +270,37 @@ public class EnrollMentSystem {
                                     System.out.println("searching in course");
                                     int updateHolder2 = write.nextInt();
                                     Array.searchCourses(updateHolder2);
-                                     String subject = "";
-                                String sched = "";
-                                int unit = 0;
-                                System.out.println("enter subject please");
-                                subject = write.next();
-                                System.out.println("enter a schedule please");
-                                sched = write.next();
-                                System.out.println("enter number of units. It must be greater than 10 and less than 50");
-                                try {
-                                    unit = write.nextInt();
-                                } catch (InputMismatchException e) {
-                                    System.out.println("we only accept numbers");
-                                    write.next();
-                                    continue;
-                                }
-                                try {
-
-                                    if (ExceptionHandler.level_Three(subject, sched, unit)) {
-                                        courCount++;
-                                        ArrayList<String> list = new ArrayList();
-                                        list.add(String.valueOf(courCount));
-                                        list.add(String.valueOf(counter));
-                                        list.add(subject);
-                                        list.add(sched);
-                                        list.add(String.valueOf(unit));
-                                        
+                                    String subject = "";
+                                    String sched = "";
+                                    int unit = 0;
+                                    System.out.println("enter subject please");
+                                    subject = write.next();
+                                    System.out.println("enter a schedule please");
+                                    sched = write.next();
+                                    System.out.println("enter number of units. It must be greater than 10 and less than 50");
+                                    try {
+                                        unit = write.nextInt();
+                                    } catch (InputMismatchException e) {
+                                        System.out.println("we only accept numbers");
+                                        write.next();
+                                        continue;
                                     }
-                                } catch (Exception e) {
-                                    System.out.println(e);
-                                    continue;
-                                }
+                                    try {
+
+                                        if (ExceptionHandler.level_Three(subject, sched, unit)) {
+                                            courCount++;
+                                            ArrayList<String> list = new ArrayList();
+                                            list.add(String.valueOf(courCount));
+                                            list.add(String.valueOf(counter));
+                                            list.add(subject);
+                                            list.add(sched);
+                                            list.add(String.valueOf(unit));
+
+                                        }
+                                    } catch (Exception e) {
+                                        System.out.println(e);
+                                        continue;
+                                    }
 
                                     break;
                                 default:
@@ -353,7 +338,7 @@ public class EnrollMentSystem {
                                     System.out.println("idiot!!! only choose from the given!!");
                                     break;
                             }
-                            endSearch= Choice.endChoice(write, "search");
+                            endSearch = Choice.endChoice(write, "search");
 
                         }
                         break;

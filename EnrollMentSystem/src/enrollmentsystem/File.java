@@ -8,11 +8,9 @@ package enrollmentsystem;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
@@ -24,7 +22,7 @@ public class File {
     private BufferedWriter accFile = null;
     private BufferedWriter courseFile = null;
     private BufferedWriter infoFile = null;
-
+//constructors
     public File() {
     }
 
@@ -33,7 +31,7 @@ public class File {
         this.courseFile = courseFile;
         this.infoFile = infoFile;
     }
-
+//setters and getters
     public ArrayList getList() {
         return list;
     }
@@ -66,15 +64,13 @@ public class File {
     public String toString() {
         return "File{" + "accFile=" + accFile + ", courseFile=" + courseFile + ", infoFile=" + infoFile + '}';
     }
-
+//sending to array
     public void sendAccount(ArrayList<ArrayList> list) throws IOException {
         FileWriter accFile = new FileWriter("C:\\Users\\2ndyrGroupC\\Desktop\\Accounts.txt", false);
         try {
             for (ArrayList item : list) {
-                System.out.println(item.toString());
                 String send = String.format("%s %s %s \n", item.get(0), item.get(1), item.get(2));
                 accFile.write(send);
-
             }
             System.out.println("Data send");
         } catch (IOException e) {
@@ -89,7 +85,7 @@ public class File {
         FileWriter infoFile = new FileWriter("C:\\Users\\2ndyrGroupC\\Desktop\\Personal_Info.txt", false);
         try {
             for (ArrayList item : list) {
-                String send = String.format("%s %s %s %s %s", item.get(0), item.get(1), item.get(2), item.get(3), item.get(4));
+                String send = String.format("%s %s %s %s %s\n", item.get(0), item.get(1), item.get(2), item.get(3), item.get(4));
                 infoFile.write(send);
             }
             System.out.println("Data send");
@@ -105,7 +101,7 @@ public class File {
         FileWriter infoFile = new FileWriter("C:\\Users\\2ndyrGroupC\\Desktop\\Courses.txt", false);
         try {
             for (ArrayList item : list) {
-                String send = String.format("%s %s %s %s %s", item.get(0), item.get(1), item.get(2), item.get(3), item.get(4));
+                String send = String.format("%s %s %s %s %s\n", item.get(0), item.get(1), item.get(2), item.get(3), item.get(4));
                 courseFile.write(send);
             }
             System.out.println("Data send");
@@ -125,7 +121,6 @@ public class File {
                 for (String item : line.split(" ")) {
                     tempList.add(item);
                 }
-                System.out.println(tempList);
                 list.add(tempList);
                 tempList = new ArrayList();
                 line = reader.readLine();

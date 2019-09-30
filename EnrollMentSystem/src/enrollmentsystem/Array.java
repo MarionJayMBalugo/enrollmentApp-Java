@@ -7,6 +7,7 @@ package enrollmentsystem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  *
@@ -17,9 +18,17 @@ public class Array {
     private static ArrayList<ArrayList> accList = new ArrayList();
     private static ArrayList<ArrayList> infoList = new ArrayList();
     private static ArrayList<ArrayList> courseList = new ArrayList();
+//constructors
 
     public Array() {
     }
+
+    public Array(ArrayList<ArrayList> a, ArrayList<ArrayList> b, ArrayList<ArrayList> c) {
+        accList = a;
+        infoList = b;
+        courseList = c;
+    }
+//setters and getters
 
     public static void setAccList(ArrayList list) {
         accList = list;
@@ -33,18 +42,6 @@ public class Array {
         courseList = list;
     }
 
-    public static void addAccList(ArrayList list) {
-        accList.add(list);
-    }
-
-    public static void addInfoList(ArrayList list) {
-        infoList.add(list);
-    }
-
-    public static void addCourseList(ArrayList list) {
-        courseList.add(list);
-    }
-
     public static ArrayList<ArrayList> getAccList() {
         return accList;
     }
@@ -56,6 +53,20 @@ public class Array {
     public static ArrayList<ArrayList> getCourseList() {
         return courseList;
     }
+// adds list in account,information,course
+
+    public static void addAccList(ArrayList list) {
+        accList.add(list);
+    }
+
+    public static void addInfoList(ArrayList list) {
+        infoList.add(list);
+    }
+
+    public static void addCourseList(ArrayList list) {
+        courseList.add(list);
+    }
+//display account,information,course
 
     public static void displayAccList() {
 
@@ -65,10 +76,13 @@ public class Array {
     }
 
     public static void displayInfoList() {
-
+        System.out.println(infoList.size());
         for (ArrayList x : infoList) {
-            System.out.printf("%s\t%10s\t%10s\t%10s\t%10s\n", x.get(0), x.get(1), x.get(2), x.get(3), x.get(4));
+            if (x != null) {
+                System.out.printf("%s\t%10s\t%10s\t%10s\t%10s\n", x.get(0), x.get(1), x.get(2), x.get(3), x.get(4));
+            }
         }
+
     }
 
     public static void displayCourseList() {
@@ -77,6 +91,7 @@ public class Array {
             System.out.printf("%s\t%10s\t%10s\t%10s\t%10s\n", x.get(0), x.get(1), x.get(2), x.get(3), x.get(4));
         }
     }
+//search accounts, information,and courses
 
     public static void searchAcc(int index) {
         for (ArrayList a : accList) {
@@ -90,7 +105,7 @@ public class Array {
     public static void searchInfo(int index) {
         for (ArrayList a : infoList) {
             if (((String) a.get(1)).equals(String.valueOf(index))) {
-                System.out.printf("%s\t%10s\t%10s\n", a.get(0), a.get(1), a.get(2));
+                System.out.printf("%s\t%10s\t%10s\t%10s\t%10s\n", a.get(0), a.get(1), a.get(2), a.get(3), a.get(4));
             }
 
         }
@@ -99,18 +114,20 @@ public class Array {
     public static void searchCourses(int index) {
         for (ArrayList a : courseList) {
             if (((String) a.get(1)).equals(String.valueOf(index))) {
-                System.out.printf("%s\t%10s\t%10s\n", a.get(0), a.get(1), a.get(2));
+                System.out.printf("%s\t%10s\t%10s\t%10s\t%10s\n", a.get(0), a.get(1), a.get(2), a.get(3), a.get(4));
             }
 
         }
     }
+//delete information and course
 
     public static void deleteInfo(int index) {
-        for (ArrayList a : infoList) {
-            if (((String) a.get(0)).equals(String.valueOf(index))) {
-                System.out.printf("%s\t%10s\t%10s\n", a.get(0), a.get(1), a.get(2));
-                infoList.remove(infoList.indexOf(a));
-                System.out.println(accList.toString());
+        for (Iterator<ArrayList> iterator = infoList.iterator(); iterator.hasNext();) {
+            ArrayList a = iterator.next();
+
+            if (((String) a.get(1)).equals(String.valueOf(index))) {
+                System.out.printf("%s\t%10s\t%10s\t%10s\t%10s\n", a.get(0), a.get(1), a.get(2), a.get(3), a.get(4));
+                iterator.remove();
 
             }
 
@@ -118,15 +135,17 @@ public class Array {
     }
 
     public static void deleteCourse(int index) {
-        for (ArrayList a : courseList) {
+        for (Iterator<ArrayList> iterator = courseList.iterator(); iterator.hasNext();) {
+            ArrayList a = iterator.next();
             if (((String) a.get(1)).equals(String.valueOf(index))) {
-                System.out.printf("%s\t%10s\t%10s\n", a.get(0), a.get(1), a.get(2));
-                courseList.remove(courseList.indexOf(a));
-                System.out.println(courseList.toString());
+                System.out.printf("%s\t%10s\t%10s\t%10s\t%10s\n", a.get(0), a.get(1), a.get(2), a.get(3), a.get(4));
+                iterator.remove();
+
             }
 
         }
     }
+//updates information and course
 
     public static void updateInfo(int index, ArrayList<String> list) {
         for (ArrayList a : infoList) {
@@ -141,7 +160,6 @@ public class Array {
         for (ArrayList a : courseList) {
             if (((String) a.get(1)).equals(String.valueOf(index))) {
                 courseList.set(courseList.indexOf(a), list);
-
             }
 
         }
